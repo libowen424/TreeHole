@@ -16,6 +16,10 @@ namespace Homework1.models
         public DbSet<Anon> Anons { get; set; }
         public DbSet<Subreply> Subreplies { get; set; }
         public DbSet<Channel> Channels { get; set; }
-
+        public DbSet<ThumbUp> ThumbUps { get; set; }
+        public DbSet<Collection> Collections { get; set; }
+        public DbSet<Ifo> Ifos { get; set; }
+        public DbSet<Concern> Concerns { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

@@ -20,10 +20,9 @@ namespace Homework1.Controllers
             this.applicationDb = context;
         }
 
-        //api/topic?channelId=   ?nickName=
-        //根据channelId查询话题
+        //api/topic?channelId=   ?nickName= ?id=
         [HttpGet]
-        public ActionResult<List<Topic>> GetTopics(long channelId, string nickName)
+        public ActionResult<List<Topic>> GetTopics(long channelId, string nickName,long id)
         {
             if (nickName != null)
             {
@@ -37,6 +36,14 @@ namespace Homework1.Controllers
             else if (channelId != 0)
             {
                 var topics = applicationDb.Topics.Where(t => t.ChannelId == channelId);
+                if (topics == null)
+                    return NoContent();
+                else
+                    return topics.ToList();
+            }
+            else if(id != 0)
+            {
+                var topics = applicationDb.Topics.Where(t => t.Id == id);
                 if (topics == null)
                     return NoContent();
                 else

@@ -2,6 +2,17 @@
   <div>
     <div class="type-title">
       {{ channelName }}
+      <div class="addbutton">
+        <router-link :to="{ 
+          name: 'Post',
+          params:{
+            channelname:this.channelName,
+            channelid:this.$route.params.id,
+          },
+           }">
+       <el-button @click="handlePost" type="primary" icon="el-icon-edit" circle></el-button>
+      </router-link>
+      </div>
     </div>
     <Loading v-if="isLoading" />
     <NewsList v-else :news="news" />
@@ -49,6 +60,9 @@ export default {
     },
   },
   methods: {
+    handlePost(){
+
+    },
     // 设置所有新闻相关数据
     async setDatas() {
       this.isLoading = true;
@@ -85,6 +99,9 @@ export default {
 </script>
 
 <style scoped>
+.addbutton{
+      float: right;
+}
 .type-title {
   font-size: 2em;
   color: #888;

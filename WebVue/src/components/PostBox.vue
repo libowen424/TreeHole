@@ -34,12 +34,17 @@ data(){
 methods:{
     addReply()
     {
+         if(this.$store.state.loginUser.data==null){
+                  this.$message.error('请先登录');
+            }
+            else{
     this.replyadd.content=this.text;
     this.replyadd.topicId=this.topicId;
     this.replyadd.author=this.$store.state.loginUser.data.nickname;
             postReply(this.replyadd);
                 this.text="";
-                        this.$emit("replyadded");
+            this.$emit("replyadded");
+            }
     }
 },
 }

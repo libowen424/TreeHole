@@ -10,7 +10,9 @@
         </div>
         <ul class="nav">
           <li><router-link :to="{ name: 'Home' }">首页</router-link></li>
+          <li><router-link :to="{ name: 'Match' }">匹配</router-link></li>
           <li v-if="isLoading">loading...</li>
+          
           <li v-for="item in data.slice(0, 5)" :key="item.id">
             <router-link
               :to="{

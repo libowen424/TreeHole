@@ -9,8 +9,11 @@
     "server": "nodemon index.js --ignore client"
   },
   "dependencies": {
+    "ant-design-vue": "^1.6.2",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
+    "element-ui": "^2.13.2",
+    "goeasy": "^1.0.11",
     "vue": "^2.6.11",
     "vue-router": "^3.1.6",
     "vuex": "^3.4.0"

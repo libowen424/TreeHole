@@ -1,6 +1,21 @@
 export default {
   routes: [
     {
+      path: "/chat",
+      name: "Chat",
+      component: () => import("@/views/Chat"),
+    },
+    {
+      path: "/match",
+      name: "Match",
+      component: () => import("@/views/Match"),
+    },
+    {
+      path: "/post",
+      name: "Post",
+      component: () => import("@/views/Post"),
+    },
+    {
       path: "/personal",
       name:"Personal",
       component:()=>import("@/views/Personal"),

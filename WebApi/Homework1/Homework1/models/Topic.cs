@@ -13,6 +13,5 @@ namespace Homework1.models
         public string Describe { get; set; }
         public DateTime Date { get; set; }
         public string Publisher { get; set; }
-
     }
 }

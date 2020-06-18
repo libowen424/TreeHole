@@ -48,7 +48,5 @@ export function loginOut() {
 export async function reg(userInfo) {
   // post http://localhost:5000/api/user/reg
   var resp = await axios.post("/api/user/reg", userInfo);
-  console.log("这里");
-  console.log(resp);
   return resp;
 }

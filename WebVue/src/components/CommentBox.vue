@@ -11,31 +11,44 @@
     <div class="content_main">
     {{content}}
     </div> 
-<div class="contentToreply">
-    <div 
-    class="reply"
-    v-for="item in subreplies"
-    :key="item.id">
-        <div class="reply_content"><a>{{item.pubName}}</a>: 回复 <a>{{item.repName}}</a>: {{item.content}}
-        <button  style="background-color: #FFFFFF ;color: #387cdf; border:1px solid #387cdf;" 
-         class="button1" @click="showAddsub(item.pubName)">
-         {{
-      isReplying ? "收起回复" : "回复"
-        }}
-    </button>
-        </div>
-    </div>
 
-    <div v-show="isReplying">
+    <div class="rightbottom">
+     <button  style="background-color: #FFFFFF ;color: #387cdf; " 
+            class="button1"  @click="showSub()">
+            {{
+        isReplying ? "收起回复" : "回复"
+            }}
+        </button>
+    </div>
+    
+
+    <div class="replyBOx" v-show="isReplying">
+
+            <div 
+        class="reply"
+        v-for="item in subreplies"
+        :key="item.id">
+            <div class="reply_content">
+                <a>{{item.pubName}}</a>: 回复 <a>{{item.repName}}</a>: {{item.content}}
+                <button style="background-color: #FFFFFF ;color: #387cdf;   " 
+            class="button1" @click="showSub1(item.pubName)">
+        回复
+        </button>
+            </div>
+
+     
+
+        </div>
+
         <div class="input">
         <input  style="width:750px;height:80px" v-model="text"> 
         </div>
         <div >
-    <button style="background-color: #FFFFFF ;color: #387cdf; border:1px solid #387cdf;" 
-    class="button2" @click="addSubreply">回复</button>
+    <button style="background-color: #FFFFFF ;color: #387cdf; " 
+    class="button2" @click="addSubreply">发表</button>
         </div>
     </div>
-</div>
+
 </div>
 </template>
 
@@ -76,21 +89,31 @@ props:{
    }
 },
 methods:{
-    showAddsub(repname)
+    showSub1(pubName){
+        this.text="@"+this.author+":";
+    },
+    showSub(repname)
     {
 this.isReplying = !this.isReplying;
-this.subreplyadd.repName=repname;
+this.text="@"+this.author+":";
     },
     addSubreply()
     {
-    this.isReplying = !this.isReplying;
+           if(this.$store.state.loginUser.data==null){
+                  this.$message.error('请先登录');
+            }
+            else{
     //添加副回复
-    this.subreplyadd.content=this.text;
+    var strlist = this.text.split(":");
+    this.subreplyadd.content=strlist[1];
     this.subreplyadd.pubName=this.$store.state.loginUser.data.nickname;
+    this.subreplyadd.repName=strlist[0].substring(1);
     this.subreplyadd.replyId=this.replyId;
-    postSubreply(this.subreplyadd);
-    this.text="";
-    this.setDatas();
+    this.text="@"+this.author+":";
+    if( postSubreply(this.subreplyadd)){
+            this.setDatas();
+    }
+            }
     },
 async setDatas()
 {
@@ -99,9 +122,7 @@ async setDatas()
     {
         this.subreplies=resp.data;
     })
-//   var resp =await getSubreplies(this.replyId);
-//       console.log(resp.data);
-//   return resp.data;
+    console.log("重新获取副回复数据");
 }
 },
 created: function (){
@@ -113,7 +134,17 @@ this.setDatas();
 </script>
 
 <style scoped>
+
+.replyBOx{
+    margin-top: 300px;
+    margin-bottom: 50px;
+}
+.rightbottom{
+position: absolute; 
+left:890px ; top:250px; 
+}
 .content {
+    position:relative;
     width: 980px;
     min-height:300px;
     border:1px solid rgb(38, 46, 48);
@@ -134,8 +165,9 @@ this.setDatas();
     margin-top:20px;
 }
 .contentToreply{
+    min-height: 280px;
     margin-top: 100px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
 }
 .reply {
     background: #f7f8fa;
@@ -147,6 +179,7 @@ this.setDatas();
     padding: 4px 15px 14px;
 }
 .reply_content {
+        position:relative;
     margin-top: 15px;
 }
 .button{
@@ -158,11 +191,11 @@ this.setDatas();
      width: 150px;
 }
 .button1{
-    float: right;
-    float: bottom;
     text-align: center;
     width: 80px;
-    height: 30px;
+    height: 20px;
+    position: absolute; 
+right:20px ; bottom:0px; 
 }
 .input{
     margin-top: 30px;

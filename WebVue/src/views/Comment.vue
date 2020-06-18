@@ -5,7 +5,7 @@
   <CommentBox :content="item.content" :author="item.author" :replyId="item.id" :topicId="item.topicId" />
   
 </div>
-  <PostBox @replyadded="setDatas" :topicId=2 />
+  <PostBox @replyadded="setDatas()" :topicId=this.$route.params.id />
 </div>
 </template>
 
